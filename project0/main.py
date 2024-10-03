@@ -1,4 +1,3 @@
-
 import argparse
 import urllib.request
 import sqlite3
@@ -6,29 +5,26 @@ import pypdf
 from pypdf import PdfReader
 import os
 import re
+import io  # Import io module for in-memory buffer
 
 def fetchincidents(url):
-    headers = {'User-Agent': "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"}
+    headers = {
+        'User-Agent': "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
+    }
     response = urllib.request.urlopen(urllib.request.Request(url, headers=headers))
     data = response.read()
 
-    file_path = os.path.join(r"./resources", "incident_report.pdf")
-    with open(file_path, 'wb') as f:
-        f.write(data)
-    return file_path
+    # Create an in-memory bytes buffer
+    pdf_buffer = io.BytesIO(data)
+    return pdf_buffer  # Return the buffer instead of a file path
 
-
-
-def extractincidents(pdf_path):
-    reader = PdfReader(pdf_path)
+def extractincidents(pdf_buffer):
+    reader = PdfReader(pdf_buffer)  # Read from the in-memory buffer
     incidents = []
 
     for page in reader.pages:
         text = page.extract_text(extraction_mode="layout")
         lines = text.split('\n')  # Split the text into lines
-
-        # Skip the first three lines (heading and column names)
-        lines = lines[3:]  # Removes the first 3 lines
 
         for line in lines:
             # Strip leading/trailing whitespace
@@ -36,24 +32,17 @@ def extractincidents(pdf_path):
 
             fields = re.split(r'\s{2,}', stripped_line)
 
-            if fields == '':
-                continue
+            if ':' in stripped_line:
+                if len(fields) >= 3:  
+                    date_time = fields[0]
+                    incident_number = fields[1]
+                    location = fields[2]
+                    nature = fields[3]
+                    incident_ori = fields[4]
 
-            if len(fields) >= 3:  
-                date_time = fields[0]
-                incident_number = fields[1]
-                location = fields[2]
-                nature = fields[3]
-                incident_ori = fields[4]
-
-                incidents.append((date_time, incident_number, location, nature, incident_ori))
-                # print(f"Extracted: Date/Time: {date_time}, Incident Number: {incident_number}, Location: {location}, Nature: {nature}, ORI: {incident_ori}")
-            
+                    incidents.append((date_time, incident_number, location, nature, incident_ori))
 
     return incidents
-
-
-
 
 def createdb():
     db_path = "resources/normanpd.db"
@@ -87,7 +76,6 @@ def populatedb(db_connection, incidents):
     
     db_connection.commit()
 
-
 def status(db_connection):
     cursor = db_connection.cursor()
     cursor.execute('''
@@ -101,7 +89,6 @@ def status(db_connection):
     
     for row in rows:
         print(f"{row[0]}|{row[1]}")
-
 
 def main(url):
     # Download data
@@ -118,7 +105,6 @@ def main(url):
 	
     # Print incident counts
     status(db)
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Download, parse, and store incident data from Norman PD website.")
