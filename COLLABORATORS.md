@@ -1,0 +1,1 @@
+pypdf documentation | https://pypdf.readthedocs.io/en/stable/user/extract-text.html | helped me extract pdf in layout mode
