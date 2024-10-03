@@ -7,7 +7,7 @@ import io
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../Project0')))
 
-from main import fetchincidents, extractincidents, createdb, populatedb, status
+from project0.main import fetchincidents, extractincidents, createdb, populatedb, status
 
 @pytest.fixture
 def sample_pdf():
