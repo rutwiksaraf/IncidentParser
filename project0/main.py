@@ -12,7 +12,7 @@ def fetchincidents(url):
     response = urllib.request.urlopen(urllib.request.Request(url, headers=headers))
     data = response.read()
 
-    file_path = os.path.join(r"C:\Users\rutwi\Desktop\DE\cis6930fa24-project0\cis6930fa24-project0\resources", "incident_report.pdf")
+    file_path = os.path.join(r"./resources", "incident_report.pdf")
     with open(file_path, 'wb') as f:
         f.write(data)
     return file_path
