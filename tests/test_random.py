@@ -52,7 +52,7 @@ def sample_pdf():
 def sample_incidents():
     return [
         ('2023-09-01 12:00', 'INC45345', 'Jacksonville FL', 'Trespassing', 'ORI123'),
-        ('2023-09-01 13:00', 'INC76978', 'Sand Diego', 'Shooting', 'ORI124'),
+        ('2023-09-01 13:00', 'INC76978', 'San Diego', 'Shooting', 'ORI124'),
     ]
 
 def test_fetchincidents(mocker, sample_pdf):  # Accept sample_pdf as a parameter
@@ -96,6 +96,6 @@ def test_status(sample_incidents):
     # Capture output
     with patch('builtins.print') as mock_print:
         status(connection)
-        mock_print.assert_any_call('Nature A|1')
-        mock_print.assert_any_call('Nature B|1')
+        mock_print.assert_any_call('Trespassing|1')
+        mock_print.assert_any_call('Shooting|1')
     connection.close()
