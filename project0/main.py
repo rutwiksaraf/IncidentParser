@@ -5,7 +5,7 @@ import pypdf
 from pypdf import PdfReader
 import os
 import re
-import io  # Import io module for in-memory buffer
+import io 
 
 def fetchincidents(url):
     headers = {
@@ -14,17 +14,17 @@ def fetchincidents(url):
     response = urllib.request.urlopen(urllib.request.Request(url, headers=headers))
     data = response.read()
 
-    # Create an in-memory bytes buffer
+    # Creating an in-memory bytes buffer
     pdf_buffer = io.BytesIO(data)
-    return pdf_buffer  # Return the buffer instead of a file path
+    return pdf_buffer 
 
 def extractincidents(pdf_buffer):
-    reader = PdfReader(pdf_buffer)  # Read from the in-memory buffer
+    reader = PdfReader(pdf_buffer)  # Reading from the in-memory buffer
     incidents = []
 
     for page in reader.pages:
         text = page.extract_text(extraction_mode="layout")
-        lines = text.split('\n')  # Split the text into lines
+        lines = text.split('\n')  # Spliting the text into lines
 
         for line in lines:
             # Strip leading/trailing whitespace
@@ -44,6 +44,7 @@ def extractincidents(pdf_buffer):
 
     return incidents
 
+#Function to create a database
 def createdb():
     db_path = "resources/normanpd.db"
     connection = sqlite3.connect(db_path)
@@ -62,13 +63,13 @@ def createdb():
     connection.commit()
     return connection
 
+#Function to add data into the database
 def populatedb(db_connection, incidents):
     cursor = db_connection.cursor()
 
     # Clear existing records before inserting new data
     cursor.execute('DELETE FROM incidents')
     
-    # Now insert new records
     cursor.executemany('''
     INSERT INTO incidents (incident_time, incident_number, incident_location, nature, incident_ori)
     VALUES (?, ?, ?, ?, ?)
@@ -76,6 +77,7 @@ def populatedb(db_connection, incidents):
     
     db_connection.commit()
 
+#Function to print the nature of incident in ascending order from the database
 def status(db_connection):
     cursor = db_connection.cursor()
     cursor.execute('''
