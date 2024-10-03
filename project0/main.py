@@ -47,7 +47,7 @@ def extractincidents(pdf_path):
                 incident_ori = fields[4]
 
                 incidents.append((date_time, incident_number, location, nature, incident_ori))
-                print(f"Extracted: Date/Time: {date_time}, Incident Number: {incident_number}, Location: {location}, Nature: {nature}, ORI: {incident_ori}")
+                # print(f"Extracted: Date/Time: {date_time}, Incident Number: {incident_number}, Location: {location}, Nature: {nature}, ORI: {incident_ori}")
             
 
     return incidents
