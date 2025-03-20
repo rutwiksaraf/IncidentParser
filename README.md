@@ -1,54 +1,87 @@
-AUTHOR: RUTWIK SARAF
+# 🚔 Incident Data Extractor
 
-*INTRODUCTION:
+### 👤 **Author:**  
+**Rutwik Saraf**
 
-THIS PROJECT IS A PYTHON APPLICATION THAT EXTRACTS INCIDENTS DATA FROM A PDF FILE, STORES IT IN A DATABASE, AND PROVIDES FUNCTIONS TO POPULATE AND RETRIEVE INCIDENT INFORMATION.
+---
 
+**## 📌 Introduction**
 
-*FUNCTIONS OVERVIEW:
+This Python application **extracts incident data** from a **PDF file**, stores it in a **database**, and provides functions to **populate** and **retrieve** incident information.
 
-FETCHINCIDENTS(URL): FETCHES A PDF FROM A GIVEN URL AND RETURNS A BYTE BUFFER OF THE CONTENTS.
-EXTRACTINCIDENTS(BUFFER): EXTRACTS INCIDENT DATA FROM THE PROVIDED PDF BUFFER. INCIDENT DATA IS PARSED FROM TEXT IN THE PDF.
-CREATEDB(): CREATES AN SQLITE DATABASE WITH A TABLE TO STORE INCIDENT INFORMATION.
-POPULATEDB(CONNECTION, INCIDENTS): POPULATES THE SQLITE DATABASE WITH A LIST OF INCIDENT RECORDS.
-STATUS(CONNECTION): PRINTS THE INCIDENT COUNTS GROUPED BY NATURE OF THE INCIDENT.
+---
 
+**## 📜 Functions Overview**
 
-*APPROACH:
+### 🔹 `fetchIncidents(url)`
+- Fetches a **PDF file** from a given **URL**.
+- Returns a **byte buffer** of the PDF contents.
 
-THE MAIN GOAL OF THE PROJECT IS TO FETCH INCIDENT REPORTS FROM PDFS, EXTRACT THE RELEVANT INFORMATION, AND STORE THIS DATA IN AN SQLITE DATABASE FOR FURTHER QUERYING.
+### 🔹 `extractIncidents(buffer)`
+- Extracts **incident data** from the provided **PDF buffer**.
+- Parses incident details from the **text inside the PDF**.
 
-*DATABASE DEVELOPMENT APPROACH:
+### 🔹 `createDB()`
+- Creates an **SQLite database** with a table to store **incident information**.
 
-CREATING DATABASE: I IMPLEMENTED AN SQLITE DATABASE TO STORE INCIDENT DATA IN A STRUCTURED FORMAT. THIS INCLUDES COLUMNS FOR DATE, INCIDENT NUMBER, LOCATION, NATURE OF INCIDENT, AND ORI.
-DATA POPULATION: INCIDENT DATA IS EXTRACTED FROM A PDF FILE AND THEN INSERTED INTO THE SQLITE DATABASE.
+### 🔹 `populateDB(connection, incidents)`
+- Populates the **SQLite database** with a **list of incident records**.
 
-*REQUIRED INSTALLATION COMMANDS:
-PIP INSTALL PYPDF
-PIP INSTALL PYTEST
+### 🔹 `status(connection)`
+- Prints the **incident counts**, grouped by the **nature of the incident**.
 
+---
 
-*HOW TO RUN THE CODE:
-TO RUN THIS PROJECT, YOU CAN USE THE FOLLOWING COMMANDS:
+**## 🚀 Approach**
 
-PIPENV RUN PYTHON PROJECT0/MAIN.PY --INCIDENTS "PDF URL"
+The **main goal** of this project is to:
+1. **Fetch** incident reports from PDFs.
+2. **Extract** relevant information.
+3. **Store** the data in an **SQLite database** for easy querying.
 
-TO RUN THE TESTCASES:
+---
 
-PIPENV RUN PYTHON -M PYTEST
+**## 🏛 Database Development Approach**
 
-*DEMO:
+### 🔹 **Creating the Database**
+- Implemented an **SQLite database** to store **incident data** in a **structured format**.
+- **Columns included**:  
+  ✅ **Date**  
+  ✅ **Incident Number**  
+  ✅ **Location**  
+  ✅ **Nature of Incident**  
+  ✅ **ORI**
 
-https://github.com/user-attachments/assets/566e22c2-7d8e-4ad0-ac62-a8ae404f012d
+### 🔹 **Data Population**
+- Extracted **incident data** from a **PDF file**.
+- Inserted the extracted data into the **SQLite database**.
 
+---
 
-*ASSUMPTIONS:
+**## 📦 Required Installation Commands**
 
-THE PDF FORMAT IS STRUCTURED CONSISTENTLY.
-INCIDENT NATURES WILL BE TEXTUALLY SIMILAR ENOUGH TO GROUP.
-INCIDENT DATA CAN BE PROPERLY PARSED FROM THE CONTENTS OF THE PDF USING BASIC STRING OPERATIONS.
+To install dependencies, run:
 
-*KNOWN BUGS AND ISSUES:
+```sh
+pip install pypdf
+pip install pytest
 
-PDF PARSING: THE PDF PARSING MIGHT FAIL IF THE STRUCTURE OF THE PDF CHANGES OR IS TOO COMPLEX.
-INCIDENT EXTRACTION: EXTRACTING DATA FROM PDF IS HIGHLY DEPENDENT ON THE FORMAT, SO ANY CHANGES TO THE PDF STRUCTURE CAN CAUSE ERRORS.
+## **🎯 How to Run the Code**
+
+### **Running the Project**
+
+```sh
+pipenv run python project0/main.py --incidents "PDF URL"
+
+### **Running the test cases**
+
+```sh
+pipenv run python -m pytest
+
+## 🎥 **Demo**
+🔗 [Project Demo](https://github.com/user-attachments/assets/566e22c2-7d8e-4ad0-ac62-a8ae404f012d) 
+
+## **Assumptions**
+1. The PDF format is structured consistently.
+2. Incident natures will be textually similar enough for grouping.
+3. Incident data can be properly parsed from the PDF content using basic string operations.
