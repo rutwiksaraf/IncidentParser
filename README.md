@@ -65,6 +65,7 @@ To install dependencies, run:
 ```sh
 pip install pypdf
 pip install pytest
+```
 
 ## **🎯 How to Run the Code**
 
@@ -72,11 +73,13 @@ pip install pytest
 
 ```sh
 pipenv run python project0/main.py --incidents "PDF URL"
+```
 
 ### **Running the test cases**
 
 ```sh
 pipenv run python -m pytest
+```
 
 ## 🎥 **Demo**
 🔗 [Project Demo](https://github.com/user-attachments/assets/566e22c2-7d8e-4ad0-ac62-a8ae404f012d) 
